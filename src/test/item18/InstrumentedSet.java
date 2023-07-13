@@ -3,6 +3,7 @@ package test.item18;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.Stack;
 
 class ForwardingSet<E> implements Set<E> {
 
