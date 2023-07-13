@@ -5,6 +5,7 @@ final class SomeService {
 		void performAsync(SomethingWithCallback callback) {
 			new Thread(() -> {
 				perform();
+				System.out.println("class = " + callback.getClass());
 				callback.call();
 			}).start();
 		}
