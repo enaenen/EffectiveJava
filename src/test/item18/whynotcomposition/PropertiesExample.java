@@ -36,4 +36,5 @@ public class PropertiesExample {
 		System.out.println("properties.getProperty() = " + properties.getProperty("name"));
 
 	}
+
 }
