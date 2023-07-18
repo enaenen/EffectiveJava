@@ -7,37 +7,33 @@ import projectx.repository.ItemRepositoryV0;
 
 public class ProductInsert {
 
-	private static final ItemRepositoryV0 itemRepositoryV0 = new ItemRepositoryV0();
 
 	private static final String TERMINATE_COMMAND = "exit";
 	private static final Scanner scanner = new Scanner(System.in);
-	private static String command;
+	private static String command = "";
 
-
-	private static void saveItem(Item item) {
-		try {
-			itemRepositoryV0.save(item);
-		} catch (SQLException e) {
-			System.out.println("error = " + e);
-		}
+	enum Status {
+		NAME, PRICE, STOCK, EXIT
 	}
 
 	private static void insertItem() {
-		int status = 0;
-		String name = null;
 		int price = 0;
 		int stock = 0;
+
+		Status currentStatus = Status.NAME;
+		String name = null;
+
 		Item newItem;
 
 		System.out.println("상품 등록을 시작합니다.");
-		while (status != -1) {
-			switch (status) {
-				case 0:
-					System.out.println("상품명을 입력해주세요.");
+		while (currentStatus != Status.EXIT) {
+			switch (currentStatus) {
+				case NAME:
+					System.out.println("[등록] 상품명을 입력해주세요.");
 					command = scanner.next();
 					if (command.equals(TERMINATE_COMMAND)) {
 						if (isSureExit()) {
-							status = -1;
+							currentStatus = Status.EXIT;
 						}
 						break;
 					}
@@ -46,15 +42,17 @@ public class ProductInsert {
 						break;
 					}
 					name = command;
-					status = 1;
-				case 1:
-					System.out.println("상품 가격을 입력해주세요.");
+					currentStatus = Status.PRICE;
+				case PRICE:
+					System.out.println("[등록] 상품 가격을 입력해주세요.");
 					command = scanner.next();
 					try {
 						price = Integer.parseInt(command);
 					} catch (NumberFormatException e) {
 						if (command.equals(TERMINATE_COMMAND)) {
-							status = -1;
+							if (isSureExit()) {
+								currentStatus = Status.EXIT;
+							}
 						}
 						System.out.println("상품 가격이 잘못 입력되었습니다.");
 						break;
@@ -63,31 +61,32 @@ public class ProductInsert {
 						System.out.println("상품 가격이 잘못 입력되었습니다.");
 						break;
 					}
-					status = 2;
-				case 2:
-					System.out.println("상품 재고를 입력해주세요.");
+					currentStatus = Status.STOCK;
+				case STOCK:
+					System.out.println("[등록] 상품 재고수량을 입력해주세요.");
 					command = scanner.next();
 					try {
 						stock = Integer.parseInt(command);
-
 					} catch (NumberFormatException e) {
 						if (command.equals(TERMINATE_COMMAND)) {
-							status = -1;
+							if (isSureExit()) {
+								currentStatus = Status.EXIT;
+							}
 							break;
 						}
-						System.out.println("상품 재고가 잘못 입력되었습니다.");
+						System.out.println("상품 재고수량이 잘못 입력되었습니다.");
 						break;
 					}
 					if (stock < 0) {
-						System.out.println("상품 재고가 잘못 입력되었습니다.");
+						System.out.println("상품 재고수량이 잘못 입력되었습니다.");
 						break;
 					}
 
-					status = 0;
+					currentStatus = Status.NAME;
 					newItem = new Item(name, price, stock);
 					System.out.println("newItem = " + newItem);
 //					saveItem(newItem);
-				case -1:
+				case EXIT:
 					break;
 			}
 
@@ -100,16 +99,9 @@ public class ProductInsert {
 	public static void main(String[] args) {
 		System.out.println("상품 등록 시스템");
 		System.out.println("종료를 뭔하시면 exit 을 입력해주세요.");
-		command = "";
 
-		while (!command.equals(TERMINATE_COMMAND)) {
-			insertItem();
-			if (command.equals(TERMINATE_COMMAND) && isSureExit()) {
-				break;
-			} else {
-				command="";
-			}
-		}
+		insertItem();
+
 		System.out.println("프로그램 종료");
 		scanner.close();
 	}

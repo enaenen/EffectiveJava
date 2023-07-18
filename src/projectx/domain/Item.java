@@ -25,6 +25,8 @@ public class Item {
 		this.stock = stock;
 	}
 
+
+
 	public int getCode() {
 		return code;
 	}
