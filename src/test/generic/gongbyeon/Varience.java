@@ -1,4 +1,4 @@
-package test.generic;
+package test.generic.gongbyeon;
 
 import java.util.ArrayList;
 import java.util.List;
