@@ -16,6 +16,7 @@ public class NoWarning {
 			 * wrong version of bar() gets called
 			 */
 //			@SuppressWarnings("unchecked")
+//			Collection<Object> coll = (Collection<Object>) object;
 			Collection<?> coll = (Collection<?>) object;
 			bar(coll);
 		}
@@ -28,7 +29,7 @@ public class NoWarning {
 
 	// called when the param is Collection<?>
 	private void bar(Object object) {
-		System.out.println("Collection<?>");
+		System.out.println("object");
 
 	}
 
