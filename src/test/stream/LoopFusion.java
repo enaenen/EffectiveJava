@@ -7,8 +7,9 @@ public class LoopFusion {
 	public static void main(String[] args) {
 		loopFusion();
 	}
+
 	public static void loopFusion() {
-		List<String> names = List.of("chae", "lee", "an", "choi","park");
+		List<String> names = List.of("chae", "lee", "an", "choi", "park");
 		names.stream()
 				.filter(str -> {
 					System.out.println("first filter = " + str);
@@ -26,6 +27,5 @@ public class LoopFusion {
 					System.out.println("forEach = " + str + "\n");
 				});
 	}
-
 
 }
