@@ -39,5 +39,13 @@ public class Advantage {
 				.filter(str -> !str.contains("abc"))
 				.collect(Collectors.toList());
 	}
+	public static List<String> streamVersionWithParallel(List<String> list) {
+		return list.stream()
+				.parallel()
+				.filter(str -> str.length() < 10)
+				.map(String::toLowerCase)
+				.filter(str -> !str.contains("abc"))
+				.collect(Collectors.toList());
+	}
 
 }
