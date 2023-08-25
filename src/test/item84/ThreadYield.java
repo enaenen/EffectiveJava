@@ -15,7 +15,7 @@ public class ThreadYield {
 		public void run() {
 			for (int i = 0; i < 5; i++) {
 				System.out.println(Thread.currentThread().getName() + " 아이템 생산 " + i);
-				Thread.yield(); // 시간 양보
+//				Thread.yield(); // 시간 양보
 			}
 		}
 	}
@@ -25,7 +25,7 @@ public class ThreadYield {
 		public void run() {
 			for (int i = 0; i < 5; i++) {
 				System.out.println(Thread.currentThread().getName() + " 아이템 소비 " + i);
-				Thread.yield(); // 시간 양보
+//				Thread.yield(); // 시간 양보
 			}
 		}
 
